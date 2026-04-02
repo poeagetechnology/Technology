@@ -1,0 +1,45 @@
+# Robots.txt for Poeage Technology
+# This file tells search engines how to crawl and index your website
+
+# Allow all bots to crawl the site (standard compliance)
+User-agent: *
+Allow: /
+
+# Disallow private/admin areas (customize as needed)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /test/
+
+# Allow specific bots with standard crawl delays
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow low-quality crawlers and spambots
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+# Specify sitemap location
+Sitemap: https://www.poeagetechnology.com/sitemap.xml
+
+# Set the crawl delay (time between requests in seconds)
+# Most search engines don't follow this, but some bots do
+Crawl-delay: 1
+
+# Request rate (pages per second to crawl)
+Request-rate: 1/1s
