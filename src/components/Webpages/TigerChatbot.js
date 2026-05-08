@@ -81,7 +81,11 @@ export default function TigerChatbot() {
           >
             {/* HEADER */}
             <div className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white p-4 flex items-center gap-3">
-              <img src={TigerIcon} className="w-10 h-10 rounded-full border-2 border-white" />
+              <img
+                src={TigerIcon}
+                alt="Poeage Tiger assistant"
+                className="w-10 h-10 rounded-full border-2 border-white"
+              />
               <div className="flex-1">
                 <p className="font-semibold">Poeage Tiger</p>
                 <p className="text-xs opacity-80">Online • AI Assistant</p>

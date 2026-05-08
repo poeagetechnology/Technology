@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
@@ -69,14 +69,6 @@ const FAQS = [
 
 const fadeInUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 0.68, 0, 1] } } };
 const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } } };
-
-/* ── LAYOUT HELPERS ── */
-const section = (style = {}) => ({
-  padding: "5rem 1.25rem",
-  maxWidth: "80rem",
-  margin: "0 auto",
-  ...style,
-});
 
 export default function Home() {
   const navigate = useNavigate();
