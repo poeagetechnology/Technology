@@ -22,6 +22,7 @@ import Term from './Webpages/Term-Condition';
 import Privacypolicy from './Webpages/Privacypolicy';
 import OurCompany from './Webpages/OurCompany';
 import Serve from './Webpages/Serve';
+import TigerChatbot from './Webpages/TigerChatbot';
 
 
 
@@ -51,6 +52,7 @@ export const Storage = () => {
         <Route path='/work' element={<Work />} ></Route>
         <Route path='/our-company' element={<OurCompany />} ></Route>
         <Route path='/serve' element={<Serve />} ></Route>
+        <Route path='/tiger-chatbot' element={<TigerChatbot />} ></Route>
     </Routes>
     <Analytics />
 

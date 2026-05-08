@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assests/Poeage_Logo_1.png";
+import TigerChatbot from "./TigerChatbot";
 import {
   Globe, Code, TrendingUp, Bot, Menu, X, ChevronDown,
   ArrowRight, Zap
@@ -20,7 +21,6 @@ const NAV_LINKS = [
   { label: "Work", href: "/work" },
   { label: "Our Network", href: "/serve" },
   { label: "About", href: "/aboutus" },
-
 ];
 
 export default function Header({ setShowQuoteModal }) {
@@ -48,85 +48,138 @@ export default function Header({ setShowQuoteModal }) {
   return (
     <>
       <style>{`
-        .header-blur {
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+        * { font-family: 'Montserrat', sans-serif !important; }
+
+        .hdr-blur {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
         }
-        .nav-underline {
+        .hdr-nav-link {
           position: relative;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: #1e293b;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          transition: all 0.2s;
         }
-        .nav-underline::after {
+        .hdr-nav-link::after {
           content: '';
           position: absolute;
-          bottom: -2px;
-          left: 0;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, #1D4ED8, #0EA5E9);
-          transition: width 0.3s ease;
+          background: #2563eb;
           border-radius: 2px;
+          transition: width 0.3s ease;
         }
-        .nav-underline:hover::after,
-        .nav-underline.active::after {
-          width: 100%;
+        .hdr-nav-link:hover { color: #2563eb; background: #eff6ff; }
+        .hdr-nav-link:hover::after,
+        .hdr-nav-link.active::after { width: 70%; }
+        .hdr-nav-link.active { color: #2563eb; }
+
+        .hdr-dropdown {
+          box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 4px 20px rgba(37,99,235,0.08);
+          border: 1px solid #dbeafe;
         }
-        .dropdown-card {
-          box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06);
+        .hdr-drop-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          border-radius: 0.75rem;
+          text-decoration: none;
+          transition: background 0.2s;
+        }
+        .hdr-drop-item:hover { background: #eff6ff; }
+
+        .hdr-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.625rem 1.25rem;
+          background: linear-gradient(135deg, #1d4ed8, #2563eb);
+          color: #fff;
+          border: none;
+          border-radius: 9999px;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.8125rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+          box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+          text-decoration: none;
+        }
+        .hdr-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+
+        @keyframes bannerGlow {
+          0%,100% { background-position: 0% }
+          50% { background-position: 100% }
         }
       `}</style>
 
       {/* Offer Banner */}
-      <div
-        className="relative z-50 text-center py-2.5 px-4 text-xs font-semibold tracking-wide text-white"
-        style={{ background: "linear-gradient(90deg, #1D4ED8 0%, #0EA5E9 50%, #1D4ED8 100%)", backgroundSize: "200% 100%", animation: "bannerShift 4s ease infinite" }}
-      >
-        <style>{`@keyframes bannerShift { 0%,100%{background-position:0%} 50%{background-position:100%} }`}</style>
-        <span className="inline-flex items-center gap-2">
-          <Zap size={12} className="fill-white" />
+      <div style={{
+        background: "linear-gradient(90deg,#1d4ed8 0%,#2563eb 40%,#0ea5e9 70%,#1d4ed8 100%)",
+        backgroundSize: "200% 100%",
+        animation: "bannerGlow 5s ease infinite",
+        padding: "0.6rem 1rem",
+        textAlign: "center",
+        position: "relative",
+        zIndex: 50,
+      }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", fontWeight: 700, color: "#fff", fontFamily: "'Montserrat',sans-serif", flexWrap: "wrap", justifyContent: "center" }}>
+          <Zap size={12} fill="#fff" />
           Free Discovery Call for New Projects — Only 5 Spots Left This Month!
-          <a href="#contact" className="ml-2 bg-white/20 border border-white/30 text-white px-3 py-0.5 rounded-full text-xs font-bold hover:bg-white/30 transition-colors">
+          <a href="#contact" style={{ marginLeft: "0.5rem", background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.35)", color: "#fff", padding: "0.2rem 0.75rem", borderRadius: "9999px", fontSize: "0.7rem", fontWeight: 700, textDecoration: "none", transition: "background 0.2s" }}>
             Book Now →
           </a>
         </span>
       </div>
 
-      {/* Main Nav */}
+      {/* Main Header */}
       <motion.header
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`sticky top-0 z-40 w-full transition-all duration-400 ${
-          scrolled
-            ? "header-blur bg-white/95 border-b border-slate-200/80 shadow-sm"
-            : "bg-white border-b border-slate-100"
-        }`}
+        className={scrolled ? "hdr-blur" : ""}
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 40,
+          width: "100%",
+          background: scrolled ? "rgba(255,255,255,0.96)" : "#ffffff",
+          borderBottom: `1px solid ${scrolled ? "#dbeafe" : "#f1f5f9"}`,
+          boxShadow: scrolled ? "0 2px 20px rgba(37,99,235,0.08)" : "none",
+          transition: "all 0.3s",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "4rem" }}>
 
           {/* Logo */}
-          <a href="/" className="flex items-center  gap-2">
-            <img src={Logo} alt="Poeage Logo" className="w-44 rounded-lg" />
+          <a href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+            <img src={Logo} alt="Poeage Logo" style={{ height: "2.5rem", width: "auto", objectFit: "contain" }} />
           </a>
-           
-          
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav style={{ display: "flex", alignItems: "center", gap: "0.25rem" }} className="hidden-mobile">
             {NAV_LINKS.map((nav) =>
               nav.dropdown ? (
                 <div
                   key={nav.label}
-                  className="relative"
+                  style={{ position: "relative" }}
                   onMouseEnter={() => setActiveDropdown(nav.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <button className="nav-underline flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors rounded-lg hover:bg-slate-50">
+                  <button className="hdr-nav-link" style={{ display: "flex", alignItems: "center", gap: "0.375rem", background: "none", border: "none", cursor: "pointer" }}>
                     {nav.label}
-                    <ChevronDown
-                      size={14}
-                      className="transition-transform duration-200"
-                      style={{ transform: activeDropdown === nav.label ? "rotate(180deg)" : "rotate(0deg)" }}
-                    />
+                    <ChevronDown size={14} style={{ transition: "transform 0.2s", transform: activeDropdown === nav.label ? "rotate(180deg)" : "rotate(0deg)" }} />
                   </button>
                   <AnimatePresence>
                     {activeDropdown === nav.label && (
@@ -135,23 +188,20 @@ export default function Header({ setShowQuoteModal }) {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.97 }}
                         transition={{ duration: 0.18 }}
-                        className="dropdown-card absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl border border-slate-200/80 overflow-hidden"
+                        className="hdr-dropdown"
+                        style={{ position: "absolute", top: "100%", left: 0, marginTop: "0.5rem", width: "16rem", background: "#fff", borderRadius: "1rem", overflow: "hidden" }}
                       >
-                        <div className="p-2">
+                        <div style={{ padding: "0.5rem" }}>
                           {nav.dropdown.map((item) => {
                             const Icon = item.icon;
                             return (
-                              <Link
-                                key={item.href}
-                                to={item.href}
-                                className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors group"
-                              >
-                                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-50 group-hover:bg-blue-100 transition-colors">
-                                  <Icon size={16} className="text-blue-600" />
+                              <Link key={item.href} to={item.href} className="hdr-drop-item">
+                                <div style={{ width: "2.25rem", height: "2.25rem", borderRadius: "0.625rem", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                  <Icon size={15} color="#2563eb" />
                                 </div>
                                 <div>
-                                  <div className="text-sm font-semibold text-slate-800">{item.label}</div>
-                                  <div className="text-xs text-slate-400">{item.desc}</div>
+                                  <div style={{ fontSize: "0.8125rem", fontWeight: 700, color: "#0f172a" }}>{item.label}</div>
+                                  <div style={{ fontSize: "0.7rem", color: "#94a3b8" }}>{item.desc}</div>
                                 </div>
                               </Link>
                             );
@@ -165,9 +215,7 @@ export default function Header({ setShowQuoteModal }) {
                 <Link
                   key={nav.label}
                   to={nav.href}
-                  className={`nav-underline px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors rounded-lg hover:bg-slate-50 ${
-                    location.pathname === nav.href ? "active text-slate-900" : ""
-                  }`}
+                  className={`hdr-nav-link ${location.pathname === nav.href ? "active" : ""}`}
                 >
                   {nav.label}
                 </Link>
@@ -176,27 +224,26 @@ export default function Header({ setShowQuoteModal }) {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href="tel:+91735809616"
-              className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors px-3 py-2"
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }} className="hidden-mobile">
+            <a href="tel:+917358096160" style={{ fontSize: "0.8125rem", fontWeight: 700, color: "#1e293b", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = "#2563eb"}
+              onMouseLeave={e => e.currentTarget.style.color = "#1e293b"}
             >
               +91 73580 9616
             </a>
             <button
               onClick={() => setShowQuoteModal && setShowQuoteModal(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
-              style={{ background: "linear-gradient(135deg, #1D4ED8, #0EA5E9)", boxShadow: "0 4px 14px rgba(29,78,216,0.25)" }}
+              className="hdr-cta"
             >
-              Start Project
-              <ArrowRight size={14} />
+              Start Project <ArrowRight size={13} />
             </button>
           </div>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+            style={{ display: "none", width: "2.5rem", height: "2.5rem", alignItems: "center", justifyContent: "center", borderRadius: "0.625rem", background: "#f1f5f9", border: "none", cursor: "pointer", color: "#1e293b" }}
+            className="mobile-toggle"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -211,56 +258,51 @@ export default function Header({ setShowQuoteModal }) {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden overflow-hidden bg-white border-t border-slate-100"
+              style={{ background: "#fff", borderTop: "1px solid #e2e8f0", overflow: "hidden" }}
             >
-              <div className="px-4 py-4 space-y-1 max-h-[80vh] overflow-y-auto">
+              <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.25rem", maxHeight: "80vh", overflowY: "auto" }}>
                 {NAV_LINKS.map((nav) =>
                   nav.dropdown ? (
                     <div key={nav.label}>
-                      <div className="px-3 py-2 text-xs font-bold uppercase tracking-widest text-slate-400 mt-3">
+                      <div style={{ padding: "0.5rem 0.75rem", fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "#94a3b8", marginTop: "0.75rem" }}>
                         {nav.label}
                       </div>
                       {nav.dropdown.map((item) => {
                         const Icon = item.icon;
                         return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-slate-50 transition-colors"
+                          <Link key={item.href} to={item.href} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem", borderRadius: "0.75rem", textDecoration: "none", transition: "background 0.2s" }}
+                            onMouseEnter={e => e.currentTarget.style.background = "#eff6ff"}
+                            onMouseLeave={e => e.currentTarget.style.background = "transparent"}
                           >
-                            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-50">
-                              <Icon size={15} className="text-blue-600" />
+                            <div style={{ width: "2rem", height: "2rem", borderRadius: "0.5rem", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              <Icon size={14} color="#2563eb" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-slate-800">{item.label}</div>
-                              <div className="text-xs text-slate-400">{item.desc}</div>
+                              <div style={{ fontSize: "0.8125rem", fontWeight: 700, color: "#0f172a" }}>{item.label}</div>
+                              <div style={{ fontSize: "0.7rem", color: "#94a3b8" }}>{item.desc}</div>
                             </div>
                           </Link>
                         );
                       })}
                     </div>
                   ) : (
-                    <Link
-                      key={nav.label}
-                      to={nav.href}
-                      className="flex items-center px-3 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition-colors"
+                    <Link key={nav.label} to={nav.href} style={{ display: "flex", alignItems: "center", padding: "0.75rem", borderRadius: "0.75rem", fontSize: "0.875rem", fontWeight: 700, color: "#1e293b", textDecoration: "none", transition: "all 0.2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = "#eff6ff"; e.currentTarget.style.color = "#2563eb"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#1e293b"; }}
                     >
                       {nav.label}
                     </Link>
                   )
                 )}
 
-                <div className="pt-4 space-y-3 border-t border-slate-100 mt-4">
-                  <a
-                    href="tel:+91735809616"
-                    className="flex items-center gap-2 px-3 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50"
-                  >
+                <div style={{ paddingTop: "1rem", marginTop: "0.5rem", borderTop: "1px solid #e2e8f0", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <a href="tel:+917358096160" style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.75rem", borderRadius: "0.75rem", fontSize: "0.875rem", fontWeight: 700, color: "#1e293b", textDecoration: "none" }}>
                     📞 +91 73580 9616
                   </a>
                   <button
                     onClick={() => { setShowQuoteModal && setShowQuoteModal(true); setMobileOpen(false); }}
-                    className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all"
-                    style={{ background: "linear-gradient(135deg, #1D4ED8, #0EA5E9)" }}
+                    className="hdr-cta"
+                    style={{ justifyContent: "center", borderRadius: "0.875rem", padding: "0.875rem" }}
                   >
                     Start Your Project →
                   </button>
@@ -269,7 +311,17 @@ export default function Header({ setShowQuoteModal }) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <style>{`
+          @media (max-width: 768px) {
+            .hidden-mobile { display: none !important; }
+            .mobile-toggle { display: flex !important; }
+          }
+        `}</style>
       </motion.header>
+
+    <TigerChatbot />
     </>
+
   );
 }

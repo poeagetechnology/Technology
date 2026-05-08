@@ -6,8 +6,11 @@
     "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@vercel/analytics": "^2.0.1",
+    "cors": "^2.8.6",
     "cra-template": "1.2.0",
+    "dotenv": "^17.4.2",
     "emailjs-com": "^3.2.0",
+    "express": "^5.2.1",
     "framer-motion": "^12.12.2",
     "lucide-react": "^0.484.0",
     "react": "^19.0.0",
@@ -19,7 +22,9 @@
     "react-transition-group": "^4.4.5",
     "swiper": "^12.0.1"
   },
+  "proxy": "http://localhost:5050",
   "scripts": {
+    "server": "node server/index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -47,6 +52,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.2.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
   }
